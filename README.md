@@ -1,0 +1,1 @@
+Resettle Mod adds a planetary decision to move all pops out of the colony with one click.

@@ -1,0 +1,310 @@
+namespace = resettlecol
+planet_event = {
+	id = resettlecol.10
+	title = resettlecol.10.name
+	desc = resettlecol.10.desc
+	picture = GFX_evt_big_landing_ship
+	location = this
+	is_triggered_only = yes
+	option = {
+		name = resettlecol_all.10
+		custom_tooltip = resettlecol_all.10_desc
+		allow = {
+			owner = {
+				num_owned_planets > 1
+			}
+			NOT = {
+				has_orbital_bombardment = yes
+			}
+			is_occupied_flag = no
+		}
+		hidden_effect = {
+			planet_event = {
+				id = resettlecol.11
+				days = 0
+			}
+		}
+	}
+	option = {
+		name = resettlecol_no.10
+	}
+}
+
+planet_event = {
+	id = resettlecol.11
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		change_variable = {
+			which = resettlecol_decision_out_num
+			value = 1
+		}
+		every_owned_pop = {
+			prev = {
+				change_variable = {
+					which = resettlecol_pops_out_num
+					value = 1
+				}
+				change_variable = {
+					which = resettlecol_pops_balance
+					value = -1
+				}
+			}
+		}
+		owner = {
+			save_event_target_as = resettlecol_country
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+		# enslaved
+		planet_event = {
+			id = resettlecol.12
+			days = 1
+		}
+		# worker
+		planet_event = {
+			id = resettlecol.13
+			days = 2
+		}
+		# specialist
+		planet_event = {
+			id = resettlecol.14
+			days = 3
+		}
+		# ruler
+		planet_event = {
+			id = resettlecol.15
+			days = 4
+		}
+		# other
+		planet_event = {
+			id = resettlecol.20
+			days = 5
+		}
+	}
+}
+
+planet_event = {
+	id = resettlecol.12
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		every_owned_pop = {
+			limit = {
+				OR = {
+					is_pop_category = slave
+					# is_enslaved = yes
+					is_pop_category = robot_servant
+					# has_citizenship_type = {
+					# 	type = citizenship_robot_servitude
+					# }
+					is_pop_category = bio_trophy
+					is_pop_category = purge
+					is_pop_category = assimilation
+					is_pop_category = pre_sapients
+				}
+			}
+			prev = {
+				change_variable = {
+					which = resettlecol_outgoing_num
+					value = 1
+				}
+			}
+			set_pop_flag = resettlecol_pop
+		}
+		while = {
+			count = resettlecol_outgoing_num
+			resettlecol_resettle_effect = yes
+		}
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		event_target:resettlecol_country = {
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = resettlecol.13
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		every_owned_pop = {
+			limit = {
+				OR = {
+					is_pop_category = worker
+					is_pop_category = criminal
+					is_pop_category = deviant_drone
+					is_pop_category = corrupt_drone
+					is_pop_category = simple_drone
+					is_pop_category = xeno_ward
+				}
+			}
+			prev = {
+				change_variable = {
+					which = resettlecol_outgoing_num
+					value = 1
+				}
+			}
+			set_pop_flag = resettlecol_pop
+		}
+		while = {
+			count = resettlecol_outgoing_num
+			resettlecol_resettle_effect = yes
+		}
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		event_target:resettlecol_country = {
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = resettlecol.14
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		every_owned_pop = {
+			limit = {
+				OR = {
+					is_pop_category = specialist
+					is_pop_category = complex_drone
+				}
+				is_pop_category = precursor
+			}
+			prev = {
+				change_variable = {
+					which = resettlecol_outgoing_num
+					value = 1
+				}
+			}
+			set_pop_flag = resettlecol_pop
+		}
+		while = {
+			count = resettlecol_outgoing_num
+			resettlecol_resettle_effect = yes
+		}
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		event_target:resettlecol_country = {
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = resettlecol.15
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		every_owned_pop = {
+			limit = {
+				is_pop_category = ruler
+			}
+			prev = {
+				change_variable = {
+					which = resettlecol_outgoing_num
+					value = 1
+				}
+			}
+			set_pop_flag = resettlecol_pop
+		}
+		while = {
+			count = resettlecol_outgoing_num
+			resettlecol_resettle_effect = yes
+		}
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		event_target:resettlecol_country = {
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = resettlecol.20
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		every_owned_pop = {
+			# limit = {
+			# }
+			prev = {
+				change_variable = {
+					which = resettlecol_outgoing_num
+					value = 1
+				}
+			}
+			set_pop_flag = resettlecol_pop
+		}
+		while = {
+			count = resettlecol_outgoing_num
+			resettlecol_resettle_effect = yes
+		}
+		set_variable = {
+			which = resettlecol_outgoing_num
+			value = 0
+		}
+		event_target:resettlecol_country = {
+			every_owned_planet = {
+				set_variable = {
+					which = resettlecol_equalise_blocker
+					value = 0
+				}
+			}
+		}
+	}
+}

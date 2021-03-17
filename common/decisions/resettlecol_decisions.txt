@@ -1,0 +1,24 @@
+resettlecol_decision = {
+	owned_planets_only = yes
+	icon = decision_politics
+	resources = {
+		category = decisions
+	}
+	potential = {
+		exists = owner
+		owner = {
+			is_ai = no
+		}
+	}
+	effect = {
+		custom_tooltip = resettlecol_decision_effects
+		hidden_effect = {
+			planet_event = {
+				id = resettlecol.10
+			}
+		}
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
