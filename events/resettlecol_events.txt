@@ -1,4 +1,5 @@
 namespace = resettlecol
+# Menu event.
 planet_event = {
 	id = resettlecol.10
 	title = resettlecol.10.name
@@ -10,17 +11,27 @@ planet_event = {
 		name = resettlecol_all.10
 		custom_tooltip = resettlecol_all.10_desc
 		allow = {
+			NOR = {
+				has_orbital_bombardment = yes				# Cannot resettle out of colonies under siege.
+				is_occupied_flag = yes				# Cannot resettle out of occupied colonies.
+				has_planet_flag = resettlecol_out_disabled				# Excludes planet as a valid Resettle Colony decision origin.
+			}
 			owner = {
 				num_owned_planets > 1
+				any_owned_planet = {
+					NOR = {
+						is_same_value = prevprev						# Target cannot be the same as origin.
+						is_under_colonization = yes						# Cannot resettle to worlds under colonisation.
+						has_orbital_bombardment = yes						# Cannot resettle to colonies under siege.
+						is_occupied_flag = yes						# Cannot resettle to occupied colonies.
+						has_planet_flag = resettlecol_in_disabled						# Excludes planet as a valid Resettle Colony decision target.
+					}
+				}
 			}
-			NOT = {
-				has_orbital_bombardment = yes
-			}
-			is_occupied_flag = no
 		}
 		hidden_effect = {
 			planet_event = {
-				id = resettlecol.11
+				id = resettlecol.11				# Main resettle event.
 				days = 0
 			}
 		}
@@ -30,71 +41,73 @@ planet_event = {
 	}
 }
 
+# Main resettle event.
 planet_event = {
 	id = resettlecol.11
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		change_variable = {
-			which = resettlecol_decision_out_num
+			which = resettlecol_decision_out_num			# Debug: Count number of resettlement decisions issued.
 			value = 1
 		}
 		every_owned_pop = {
 			prev = {
 				change_variable = {
-					which = resettlecol_pops_out_num
+					which = resettlecol_pops_out_num					# Debug: Count number of pops resettled out.
 					value = 1
 				}
 				change_variable = {
-					which = resettlecol_pops_balance
+					which = resettlecol_pops_balance					# Debug: Count pops resettled balance.
 					value = -1
 				}
 			}
 		}
 		owner = {
-			save_event_target_as = resettlecol_country
+			save_event_target_as = resettlecol_country			# Save owner of the origin planet for later use.
 			every_owned_planet = {
 				set_variable = {
-					which = resettlecol_equalise_blocker
+					which = resettlecol_equalise_blocker					# Reset equal pop distribution blocker.
 					value = 0
 				}
 			}
 		}
 		# enslaved
 		planet_event = {
-			id = resettlecol.12
+			id = resettlecol.12			# Resettle lowest strata.
 			days = 1
 		}
 		# worker
 		planet_event = {
-			id = resettlecol.13
+			id = resettlecol.13			# Resettle workers.
 			days = 2
 		}
 		# specialist
 		planet_event = {
-			id = resettlecol.14
+			id = resettlecol.14			# Resettle specialists.
 			days = 3
 		}
 		# ruler
 		planet_event = {
-			id = resettlecol.15
+			id = resettlecol.15			# Resettle rulers.
 			days = 4
 		}
 		# other
 		planet_event = {
-			id = resettlecol.20
+			id = resettlecol.20			# Resettle remaining pops.
 			days = 5
 		}
 	}
 }
 
+# Resettle lowest strata.
 planet_event = {
 	id = resettlecol.12
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		set_variable = {
-			which = resettlecol_outgoing_num
+			which = resettlecol_outgoing_num			# Prepare pop counter.
 			value = 0
 		}
 		every_owned_pop = {
@@ -114,24 +127,24 @@ planet_event = {
 			}
 			prev = {
 				change_variable = {
-					which = resettlecol_outgoing_num
+					which = resettlecol_outgoing_num					# Add to pop counter.
 					value = 1
 				}
 			}
-			set_pop_flag = resettlecol_pop
+			set_pop_flag = resettlecol_pop@prev			# Mark pop for resettlement.
 		}
 		while = {
-			count = resettlecol_outgoing_num
-			resettlecol_resettle_effect = yes
+			count = resettlecol_outgoing_num			# Execute resettlement times number of pops marked.
+			resettlecol_resettle_effect = yes			# Execute resettlement.
 		}
 		set_variable = {
-			which = resettlecol_outgoing_num
+			which = resettlecol_outgoing_num			# Prepare pop counter.
 			value = 0
 		}
 		event_target:resettlecol_country = {
 			every_owned_planet = {
 				set_variable = {
-					which = resettlecol_equalise_blocker
+					which = resettlecol_equalise_blocker					# Reset equal pop distribution blocker.
 					value = 0
 				}
 			}
@@ -139,6 +152,7 @@ planet_event = {
 	}
 }
 
+# Resettle workers.
 planet_event = {
 	id = resettlecol.13
 	hide_window = yes
@@ -165,7 +179,7 @@ planet_event = {
 					value = 1
 				}
 			}
-			set_pop_flag = resettlecol_pop
+			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
 			count = resettlecol_outgoing_num
@@ -186,6 +200,7 @@ planet_event = {
 	}
 }
 
+# Resettle specialists.
 planet_event = {
 	id = resettlecol.14
 	hide_window = yes
@@ -209,7 +224,7 @@ planet_event = {
 					value = 1
 				}
 			}
-			set_pop_flag = resettlecol_pop
+			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
 			count = resettlecol_outgoing_num
@@ -230,6 +245,7 @@ planet_event = {
 	}
 }
 
+# Resettle rulers.
 planet_event = {
 	id = resettlecol.15
 	hide_window = yes
@@ -249,7 +265,7 @@ planet_event = {
 					value = 1
 				}
 			}
-			set_pop_flag = resettlecol_pop
+			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
 			count = resettlecol_outgoing_num
@@ -270,6 +286,7 @@ planet_event = {
 	}
 }
 
+# Resettle remaining pops.
 planet_event = {
 	id = resettlecol.20
 	hide_window = yes
@@ -288,7 +305,7 @@ planet_event = {
 					value = 1
 				}
 			}
-			set_pop_flag = resettlecol_pop
+			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
 			count = resettlecol_outgoing_num
@@ -306,5 +323,33 @@ planet_event = {
 				}
 			}
 		}
+	}
+}
+
+# error.log cleaner, do not use!
+event = {
+	id = resettlecol.90
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_planet_flag = resettlecol_out_disabled		# Excludes planet as a valid Resettle Colony decision origin.
+		set_planet_flag = resettlecol_in_disabled		# Excludes planet as a valid Resettle Colony decision target.
+		set_global_flag = resettlecol_disabled		# Resettle Colony decision can be disabled globally with this flag.
+		set_country_flag = resettlecol_country_disabled		# Countries with this flag cannot use Resettle Colony decision.
+	}
+}
+
+# Marks mod as installed for other mods to check.
+country_event = {
+	id = resettlecol.99
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_global_flag = resettlecol_installed
+		}
+	}
+	immediate = {
+		set_global_flag = resettlecol_installed
 	}
 }

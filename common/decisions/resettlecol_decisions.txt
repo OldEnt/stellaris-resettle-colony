@@ -8,6 +8,12 @@ resettlecol_decision = {
 		exists = owner
 		owner = {
 			is_ai = no
+			NOT = {
+				has_country_flag = resettlecol_country_disabled				# Countries with this flag cannot use Resettle Colony decision.
+			}
+		}
+		NOT = {
+			has_global_flag = resettlecol_disabled			# Resettle Colony decision can be disabled globally with this flag.
 		}
 	}
 	effect = {

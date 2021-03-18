@@ -1,0 +1,5 @@
+on_game_start_country = {
+	events = {
+		resettlecol.99		# Marks mod as installed for other mods to check.
+	}
+}

@@ -2,17 +2,19 @@
 resettlecol_resettle_effect = {
 	every_owned_pop = {
 		limit = {
-			has_pop_flag = resettlecol_pop
+			has_pop_flag = resettlecol_pop@prev
 		}
-		set_pop_flag = resettlecol_pop@prev
+		set_pop_flag = resettlecol_pop
 		unemploy_pop = yes
 		clear_pop_category = yes
 		prev = {
-			owner = {
+			# owner = {
+			event_target:resettlecol_country = {
 				random_owned_planet = {
 					limit = {
 						NOR = {
 							is_same_value = prevprevprevprev
+							has_planet_flag = resettlecol_in_disabled							# Excludes planet as a valid Resettle Colony decision target.
 						}
 						has_orbital_bombardment = no
 						is_under_colonization = no
@@ -62,7 +64,76 @@ resettlecol_resettle_effect = {
 								}
 							}
 						}
-						resettlecol_resettle_effect = yes
+						every_owned_pop = {
+							limit = {
+								has_pop_flag = resettlecol_pop@prev
+							}
+							set_pop_flag = resettlecol_pop
+							unemploy_pop = yes
+							clear_pop_category = yes
+							prev = {
+								# owner = {
+								event_target:resettlecol_country = {
+									random_owned_planet = {
+										limit = {
+											NOR = {
+												is_same_value = prevprevprevprev
+												has_planet_flag = resettlecol_in_disabled
+											}
+											has_orbital_bombardment = no
+											is_under_colonization = no
+											is_occupied_flag = no
+											check_variable = {
+												which = resettlecol_equalise_blocker
+												value = 0
+											}
+										}
+										prevprev = {
+											resettle_pop = {
+												pop = prevprevprevprev
+												planet = prev
+											}
+										}
+										change_variable = {
+											which = resettlecol_pops_in_num
+											value = 1
+										}
+										change_variable = {
+											which = resettlecol_pops_balance
+											value = 1
+										}
+										set_variable = {
+											which = resettlecol_equalise_blocker
+											value = 1
+										}
+									}
+								}
+							}
+							# while = {
+							# 	count = 3
+							# 	if = {
+							# 		limit = {
+							# 			planet = {
+							# 				is_same_value = prevprev
+							# 			}
+							# 		}
+							# 		prev = {
+							# 			while = {
+							# 				count = 2
+							# 				event_target:resettlecol_country = {
+							# 					every_owned_planet = {
+							# 						set_variable = {
+							# 							which = resettlecol_equalise_blocker
+							# 							value = 0
+							# 						}
+							# 					}
+							# 				}
+							# 				resettlecol_resettle_effect = yes
+							# 			}
+							# 		}
+							# 	}
+							# }
+						}
 					}
 				}
 			}
