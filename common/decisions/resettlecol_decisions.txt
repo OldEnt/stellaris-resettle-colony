@@ -1,6 +1,6 @@
 resettlecol_decision = {
 	owned_planets_only = yes
-	icon = decision_politics
+	icon = decision_federation_fleet
 	resources = {
 		category = decisions
 	}

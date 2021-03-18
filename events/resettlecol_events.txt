@@ -47,6 +47,10 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		set_timed_planet_flag = {
+			flag = resettlecol_out_disabled			# Disallows Resettle Colony decision until script is done.
+			days = 6
+		}
 		change_variable = {
 			which = resettlecol_decision_out_num			# Debug: Count number of resettlement decisions issued.
 			value = 1
@@ -106,10 +110,10 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_variable = {
-			which = resettlecol_outgoing_num			# Prepare pop counter.
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num			# Prepare pop counter.
+		# 	value = 0
+		# }
 		every_owned_pop = {
 			limit = {
 				OR = {
@@ -125,16 +129,17 @@ planet_event = {
 					is_pop_category = pre_sapients
 				}
 			}
-			prev = {
-				change_variable = {
-					which = resettlecol_outgoing_num					# Add to pop counter.
-					value = 1
-				}
-			}
+			# prev = {
+			# 	change_variable = {
+			# 		which = resettlecol_outgoing_num					# Add to pop counter.
+			# 		value = 1
+			# 	}
+			# }
 			set_pop_flag = resettlecol_pop@prev			# Mark pop for resettlement.
 		}
 		while = {
-			count = resettlecol_outgoing_num			# Execute resettlement times number of pops marked.
+			# count = resettlecol_outgoing_num			# Execute resettlement times number of pops marked.
+			count = 1
 			resettlecol_resettle_effect = yes			# Execute resettlement.
 		}
 		set_variable = {
@@ -158,10 +163,10 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		every_owned_pop = {
 			limit = {
 				OR = {
@@ -173,22 +178,23 @@ planet_event = {
 					is_pop_category = xeno_ward
 				}
 			}
-			prev = {
-				change_variable = {
-					which = resettlecol_outgoing_num
-					value = 1
-				}
-			}
+			# prev = {
+			# 	change_variable = {
+			# 		which = resettlecol_outgoing_num
+			# 		value = 1
+			# 	}
+			# }
 			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
-			count = resettlecol_outgoing_num
+			# count = resettlecol_outgoing_num
+			count = 1
 			resettlecol_resettle_effect = yes
 		}
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		event_target:resettlecol_country = {
 			every_owned_planet = {
 				set_variable = {
@@ -206,10 +212,10 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		every_owned_pop = {
 			limit = {
 				OR = {
@@ -218,22 +224,23 @@ planet_event = {
 				}
 				is_pop_category = precursor
 			}
-			prev = {
-				change_variable = {
-					which = resettlecol_outgoing_num
-					value = 1
-				}
-			}
+			# prev = {
+			# 	change_variable = {
+			# 		which = resettlecol_outgoing_num
+			# 		value = 1
+			# 	}
+			# }
 			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
-			count = resettlecol_outgoing_num
+			# count = resettlecol_outgoing_num
+			count = 1
 			resettlecol_resettle_effect = yes
 		}
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		event_target:resettlecol_country = {
 			every_owned_planet = {
 				set_variable = {
@@ -251,30 +258,31 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		every_owned_pop = {
 			limit = {
 				is_pop_category = ruler
 			}
-			prev = {
-				change_variable = {
-					which = resettlecol_outgoing_num
-					value = 1
-				}
-			}
+			# prev = {
+			# 	change_variable = {
+			# 		which = resettlecol_outgoing_num
+			# 		value = 1
+			# 	}
+			# }
 			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
-			count = resettlecol_outgoing_num
+			# count = resettlecol_outgoing_num
+			count = 1
 			resettlecol_resettle_effect = yes
 		}
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		event_target:resettlecol_country = {
 			every_owned_planet = {
 				set_variable = {
@@ -292,29 +300,30 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		every_owned_pop = {
 			# limit = {
 			# }
-			prev = {
-				change_variable = {
-					which = resettlecol_outgoing_num
-					value = 1
-				}
-			}
+			# prev = {
+			# 	change_variable = {
+			# 		which = resettlecol_outgoing_num
+			# 		value = 1
+			# 	}
+			# }
 			set_pop_flag = resettlecol_pop@prev
 		}
 		while = {
-			count = resettlecol_outgoing_num
+			# count = resettlecol_outgoing_num
+			count = 1
 			resettlecol_resettle_effect = yes
 		}
-		set_variable = {
-			which = resettlecol_outgoing_num
-			value = 0
-		}
+		# set_variable = {
+		# 	which = resettlecol_outgoing_num
+		# 	value = 0
+		# }
 		event_target:resettlecol_country = {
 			every_owned_planet = {
 				set_variable = {
