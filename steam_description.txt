@@ -1,0 +1,16 @@
+Adds planetary decision which moves all pops out of the planet with one click. Demotes pops, all languages supported.
+
+Resettlement is free and spreads pops evenly between all suitable planets (ie. not being bombarded).
+
+Compatible with 3.* and every Stellaris version since 2.2 (in theory).
+
+Resettle Colony is available on:
+[list]
+[*] Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2427978648
+[*] Paradox Mods: https://mods.paradoxplaza.com/mods/22373/Any
+[*] GitHub: https://github.com/OldEnt/stellaris-resettle-colony
+[/list]
+
+[url=https://steamcommunity.com/workshop/filedetails/?id=2114691165]See my other mods?[/url]
+
+[url=https://steamcommunity.com/linkfilter/?url=https://discordapp.com/invite/CMjnnET][img]https://i.imgur.com/4Und3QN.png[/img][/url]
